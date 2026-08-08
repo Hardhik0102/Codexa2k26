@@ -8,40 +8,98 @@ const router = express.Router(); // a mini "sub-app" just for auth-related route
 const { User } = require("../models"); // the User model, imported from our central models/index.js
 
 // POST /api/auth/login
-// Expects JSON body: { email, password }
+// Expects JSON body: { email, password, portal }
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body; // pull email and password out of the request body
+    const { email, password, portal } = req.body;
 
-    // Look up the user by email using Sequelize's findOne — returns null if no match found
-    const user = await User.findOne({ where: { email: email.toLowerCase() } }); // "where" describes the SQL WHERE clause
-
-    if (!user) {
-      // No account with that email exists
-      return res.status(401).json({ success: false, message: "Invalid email or password" }); // 401 = unauthorized
+    if (!email || !password) {
+      return res.status(400).json({ success: false, message: "Please enter your email ID and password." });
     }
 
-    // Compare the submitted password against the stored hash using the method we defined on the User model
-    const isMatch = await user.comparePassword(password); // returns true/false
+    const cleanEmail = email.toLowerCase().trim();
+    let user = await User.findOne({ where: { email: cleanEmail } });
 
-    if (!isMatch) {
-      // Password is wrong
-      return res.status(401).json({ success: false, message: "Invalid email or password" });
+    if (portal === "admin") {
+      if (!user) {
+        return res.status(401).json({ success: false, message: "Admin account not found for this email ID." });
+      }
+      if (user.role !== "admin") {
+        return res.status(403).json({ success: false, message: "This email ID does not have Admin privileges. Please use the Student Portal." });
+      }
+      const isMatch = await user.comparePassword(password);
+      if (!isMatch) {
+        return res.status(401).json({ success: false, message: "Incorrect password for admin account." });
+      }
+    } else {
+      // Student Portal — if account doesn't exist yet, auto-create as student!
+      if (!user) {
+        const defaultName = cleanEmail.split("@")[0].replace(/[._-]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) || "Student";
+        user = await User.create({
+          name: defaultName,
+          email: cleanEmail,
+          password: password,
+          role: "student",
+        });
+      } else {
+        const isMatch = await user.comparePassword(password);
+        if (!isMatch) {
+          return res.status(401).json({ success: false, message: "Incorrect password for this email ID." });
+        }
+      }
     }
 
-    // Login succeeded — send back the minimal info the frontend needs
+    // Login succeeded — send back user info
     res.json({
-      success: true, // tells the frontend the login worked
+      success: true,
       user: {
-        id: user.id, // PostgreSQL's auto-incrementing integer id for this user
-        name: user.name, // display name
-        email: user.email, // their email
-        role: user.role, // "student" or "admin" — used by the frontend to show/hide admin features
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
       },
     });
   } catch (error) {
-    // Catches any unexpected error (e.g. database connection issue)
-    res.status(500).json({ success: false, message: error.message }); // 500 = server error
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// POST /api/auth/register
+// Expects JSON body: { name, email, password, role }
+router.post("/register", async (req, res) => {
+  try {
+    const { name, email, password, role } = req.body;
+
+    if (!email || !password || !name) {
+      return res.status(400).json({ success: false, message: "Please enter your name, email, and password." });
+    }
+
+    const existingUser = await User.findOne({ where: { email: email.toLowerCase() } });
+    if (existingUser) {
+      return res.status(400).json({ success: false, message: "An account with this email already exists. Please log in." });
+    }
+
+    // Default role to "student" unless specified as "faculty" or "admin"
+    const userRole = (role === "faculty" || role === "admin") ? role : "student";
+
+    const user = await User.create({
+      name,
+      email: email.toLowerCase(),
+      password,
+      role: userRole,
+    });
+
+    res.json({
+      success: true,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
 });
 

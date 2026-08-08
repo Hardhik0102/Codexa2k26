@@ -26,11 +26,11 @@ async function seed() {
   await sequelize.sync({ force: true });
   console.log("Tables recreated");
 
-  // Create the 3 users. Passwords are plain text HERE only because the User model's
-  // beforeCreate hook automatically hashes them before writing to PostgreSQL.
+  // Create demo users (Admin, Faculty, Student)
   const admin = await User.create({ name: "Admin User", email: "admin@campus.edu", password: "admin123", role: "admin" });
-  const studentA = await User.create({ name: "Student A", email: "studenta@campus.edu", password: "student123", role: "student" });
-  const studentB = await User.create({ name: "Student B", email: "studentb@campus.edu", password: "student123", role: "student" });
+  const faculty = await User.create({ name: "Dr. Smith (Faculty)", email: "faculty@campus.edu", password: "faculty123", role: "faculty" });
+  const studentA = await User.create({ name: "Student User", email: "student@campus.edu", password: "student123", role: "student" });
+  const studentB = await User.create({ name: "Alex (Peer Student)", email: "student2@campus.edu", password: "student123", role: "student" });
   console.log("Users created");
 
   // Create the 3 facilities exactly as specified
@@ -93,8 +93,8 @@ async function seed() {
 
   console.log("\nSeed complete! Login credentials:");
   console.log("  Admin:     admin@campus.edu / admin123");
-  console.log("  Student A: studentA@campus.edu / student123");
-  console.log("  Student B: studentB@campus.edu / student123");
+  console.log("  Faculty:   faculty@campus.edu / faculty123");
+  console.log("  Student:   student@campus.edu / student123");
 
   await sequelize.close(); // close the database connection cleanly
   process.exit(0); // exit the script successfully

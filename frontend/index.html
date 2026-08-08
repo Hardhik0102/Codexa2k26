@@ -1,39 +1,85 @@
-<!DOCTYPE html> <!-- tells the browser this is a modern HTML5 document -->
-<html lang="en"> <!-- root element of the page, language set to English -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" /> <!-- ensures special characters display correctly -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- makes the page render properly on mobile screens -->
-  <title>Login - Campus Resource Booking</title> <!-- text shown in the browser tab -->
-  <link rel="stylesheet" href="css/style.css" /> <!-- link to our shared stylesheet -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - Campus Resource Booking</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <div class="container" style="max-width: 400px; margin-top: 80px;"> <!-- narrow centered box just for the login form -->
-    <div class="card">
-      <h2 style="margin-bottom: 20px;">Campus Resource Booking</h2> <!-- page heading -->
+  <div class="container" style="max-width: 440px; margin-top: 50px;">
+    <div class="card" style="padding: 28px;">
+      <h2 style="text-align: center; margin-bottom: 6px; color: #1e293b;">Campus Resource Booking</h2>
+      <p style="text-align: center; color: #64748b; font-size: 13px; margin-bottom: 20px;">Book Seminar Halls, Labs & Campus Facilities</p>
 
-      <form id="loginForm"> <!-- the actual login form, submit is handled in auth.js -->
-        <label for="email">Email</label> <!-- label linked to the input below via "for" -->
-        <input type="email" id="email" required /> <!-- required = browser won't submit until this is filled -->
+      <!-- Portal Selection Tabs -->
+      <div class="portal-tabs">
+        <div class="portal-tab active" id="tabBooking" onclick="switchPortal('booking')">
+          🎓 Student Portal
+        </div>
+        <div class="portal-tab" id="tabAdmin" onclick="switchPortal('admin')">
+          🛡️ Admin Portal
+        </div>
+      </div>
+
+      <!-- Portal Description Banner -->
+      <div id="portalDesc" style="background: #eff6ff; color: #1e40af; border-radius: 6px; padding: 10px 12px; font-size: 13px; margin-bottom: 16px;">
+        📌 <strong>Student Portal:</strong> Enter any student email ID to log in and book halls directly.
+      </div>
+
+      <form id="loginForm">
+        <label for="email" id="emailLabel">Student Email ID</label>
+        <input type="email" id="email" placeholder="student@campus.edu" required />
 
         <label for="password">Password</label>
-        <input type="password" id="password" required /> <!-- type="password" hides the typed characters -->
+        <input type="password" id="password" placeholder="••••••••" required />
 
-        <button type="submit">Log In</button> <!-- clicking this (or pressing Enter) submits the form -->
+        <button type="submit" id="submitBtn" style="width: 100%; padding: 11px; margin-top: 8px; font-weight: bold; font-size: 15px;">
+          Log In & Book Hall
+        </button>
       </form>
 
-      <p id="errorMessage" style="color: red; margin-top: 10px;"></p> <!-- empty placeholder, filled in by JS if login fails -->
-
-      <!-- Quick-login buttons for demo purposes, so judges don't have to type credentials -->
-      <hr style="margin: 20px 0;" /> <!-- horizontal divider line -->
-      <p style="font-size: 13px; color: #6b7280; margin-bottom: 10px;">Quick demo login:</p>
-      <button type="button" onclick="quickLogin('admin@campus.edu','admin123')" style="margin-right: 8px;">Admin</button> <!-- type="button" so it does NOT submit the form -->
-      <button type="button" onclick="quickLogin('studenta@campus.edu','student123')" style="margin-right: 8px;">Student A</button>
-      <button type="button" onclick="quickLogin('studentb@campus.edu','student123')">Student B</button>
+      <p id="errorMessage" style="color: #dc2626; margin-top: 12px; font-size: 13px; text-align: center;"></p>
     </div>
   </div>
 
-  <script src="js/api.js"></script> <!-- shared API helper, loaded first -->
-  <script src="js/auth.js"></script> <!-- handles this page's login logic -->
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    let currentPortal = 'booking';
+
+    function switchPortal(portal) {
+      currentPortal = portal;
+      const tabBooking = document.getElementById('tabBooking');
+      const tabAdmin = document.getElementById('tabAdmin');
+      const desc = document.getElementById('portalDesc');
+      const submitBtn = document.getElementById('submitBtn');
+      const emailLabel = document.getElementById('emailLabel');
+      const emailInput = document.getElementById('email');
+
+      if (portal === 'admin') {
+        tabAdmin.classList.add('active');
+        tabBooking.classList.remove('active');
+        desc.style.background = '#fef2f2';
+        desc.style.color = '#991b1b';
+        desc.innerHTML = '🛡️ <strong>Admin Portal:</strong> Log in with administrator credentials to manage venue approvals and settings.';
+        emailLabel.textContent = 'Admin Email ID';
+        emailInput.placeholder = 'admin@campus.edu';
+        submitBtn.textContent = 'Log In to Admin Dashboard';
+        submitBtn.style.backgroundColor = '#dc2626';
+      } else {
+        tabBooking.classList.add('active');
+        tabAdmin.classList.remove('active');
+        desc.style.background = '#eff6ff';
+        desc.style.color = '#1e40af';
+        desc.innerHTML = '📌 <strong>Student Portal:</strong> Enter any student email ID to log in and book halls directly.';
+        emailLabel.textContent = 'Student Email ID';
+        emailInput.placeholder = 'student@campus.edu';
+        submitBtn.textContent = 'Log In & Book Hall';
+        submitBtn.style.backgroundColor = '#2563eb';
+      }
+    }
+  </script>
 </body>
 </html>

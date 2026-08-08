@@ -146,3 +146,65 @@ th, td {
   font-size: 13px; /* smaller descriptive label below the number */
   color: #6b7280; /* muted grey */
 }
+
+/* Login Portal Selection Tabs */
+.portal-tabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.portal-tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #6b7280;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.portal-tab.active {
+  color: #2563eb;
+  border-bottom-color: #2563eb;
+}
+
+.demo-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.demo-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8fafc;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.demo-btn:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+}
+
+.demo-role-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.demo-role-badge.admin { background-color: #ef4444; color: white; }
+.demo-role-badge.faculty { background-color: #8b5cf6; color: white; }
+.demo-role-badge.student { background-color: #3b82f6; color: white; }
+
