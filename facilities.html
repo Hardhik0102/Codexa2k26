@@ -1,0 +1,46 @@
+<!DOCTYPE html> <!-- tells the browser this is a modern HTML5 document -->
+<html lang="en"> <!-- root element of the page, language set to English -->
+<head>
+  <meta charset="UTF-8" /> <!-- ensures special characters display correctly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- makes the page render properly on mobile screens -->
+  <title>Facilities - Campus Resource Booking</title> <!-- text shown in browser tab -->
+  <link rel="stylesheet" href="css/style.css" /> <!-- link to our shared stylesheet -->
+</head>
+<body>
+
+  <!-- Shared navigation bar -->
+  <div class="navbar"> <!-- navigation bar flex container -->
+    <div><strong>Campus Booking</strong></div> <!-- app name / branding on the left -->
+    <div> <!-- nav links on the right -->
+      <a href="facilities.html">Facilities</a> <!-- facilities catalog page link -->
+      <a href="my-bookings.html">My Bookings</a> <!-- user bookings page link -->
+      <a href="adjustments.html">Requests</a> <!-- slot requests page link -->
+      <a href="admin.html" id="adminLink" style="display:none;">Admin</a> <!-- hidden by default, shown only for admins via JS -->
+      <a href="analytics.html">Analytics</a> <!-- analytics dashboard link -->
+      <a href="#" onclick="logout()">Logout</a> <!-- logout handled in facilities.js -->
+    </div>
+  </div>
+
+  <!-- Page main container -->
+  <div class="container"> <!-- layout container centering content -->
+    <h2>Available Facilities</h2> <!-- main section heading -->
+
+    <!-- Filter controls card -->
+    <div class="card"> <!-- card container for filtering facilities -->
+      <label for="categoryFilter">Filter by category</label> <!-- dropdown label -->
+      <select id="categoryFilter" onchange="loadFacilities()"> <!-- reloads facility list whenever category selection changes -->
+        <option value="">All Categories</option> <!-- empty value = no category filter applied -->
+        <option value="Seminar Hall">Seminar Hall</option> <!-- filter option for seminar halls -->
+        <option value="3D Printer">3D Printer</option> <!-- filter option for 3D printers -->
+        <option value="Conference Room">Conference Room</option> <!-- filter option for conference rooms -->
+      </select>
+    </div>
+
+    <!-- Facility cards container -->
+    <div class="facility-grid" id="facilityGrid"></div> <!-- facility cards grid dynamically inserted here by facilities.js -->
+  </div>
+
+  <script src="js/api.js"></script> <!-- shared API request helper -->
+  <script src="js/facilities.js"></script> <!-- loads facilities listing and filtering logic -->
+</body>
+</html>

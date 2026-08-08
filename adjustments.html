@@ -1,0 +1,36 @@
+<!DOCTYPE html> <!-- tells the browser this is a modern HTML5 document -->
+<html lang="en"> <!-- root element of the page, language set to English -->
+<head>
+  <meta charset="UTF-8" /> <!-- ensures special characters display correctly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- makes the page render properly on mobile screens -->
+  <title>Adjustment Requests - Campus Resource Booking</title> <!-- page title shown in browser tab -->
+  <link rel="stylesheet" href="css/style.css" /> <!-- link to our shared CSS stylesheet -->
+</head>
+<body>
+
+  <!-- Shared top navigation bar -->
+  <div class="navbar"> <!-- flexbox container for header elements -->
+    <div><strong>Campus Booking</strong></div> <!-- application branding text -->
+    <div> <!-- navigation links container -->
+      <a href="facilities.html">Facilities</a> <!-- link to facilities overview -->
+      <a href="my-bookings.html">My Bookings</a> <!-- link to user's personal bookings -->
+      <a href="adjustments.html">Requests</a> <!-- link to slot adjustment inbox page -->
+      <a href="admin.html" id="adminLink" style="display:none;">Admin</a> <!-- admin-only dashboard link, unhidden dynamically by JS -->
+      <a href="analytics.html">Analytics</a> <!-- link to utilization analytics page -->
+      <a href="#" onclick="logout()">Logout</a> <!-- logout link that triggers the logout function in JS -->
+    </div>
+  </div>
+
+  <!-- Page main content container -->
+  <div class="container"> <!-- centered layout container -->
+    <h2>Incoming Requests</h2> <!-- section title for incoming slot requests waiting for current user's approval -->
+    <div id="incomingList"></div> <!-- empty container dynamically filled with incoming request cards by adjustments.js -->
+
+    <h2 style="margin-top: 30px;">Outgoing Requests</h2> <!-- section title for outgoing slot requests sent by current user -->
+    <div id="outgoingList"></div> <!-- empty container dynamically filled with outgoing request cards by adjustments.js -->
+  </div>
+
+  <script src="js/api.js"></script> <!-- loads shared API fetch helper functions -->
+  <script src="js/adjustments.js"></script> <!-- loads request inbox logic for loading and responding to requests -->
+</body>
+</html>

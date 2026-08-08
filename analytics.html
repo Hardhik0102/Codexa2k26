@@ -1,0 +1,56 @@
+<!DOCTYPE html> <!-- tells the browser this is a modern HTML5 document -->
+<html lang="en"> <!-- root element of the page, language set to English -->
+<head>
+  <meta charset="UTF-8" /> <!-- ensures special characters display correctly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- makes the page render properly on mobile screens -->
+  <title>Analytics - Campus Resource Booking</title> <!-- page title shown in browser tab -->
+  <link rel="stylesheet" href="css/style.css" /> <!-- link to our shared CSS stylesheet -->
+</head>
+<body>
+
+  <!-- Shared top navigation bar -->
+  <div class="navbar"> <!-- flexbox header container -->
+    <div><strong>Campus Booking</strong></div> <!-- application logo and title -->
+    <div> <!-- header navigation links container -->
+      <a href="facilities.html">Facilities</a> <!-- navigation link to facilities view -->
+      <a href="my-bookings.html">My Bookings</a> <!-- navigation link to personal bookings view -->
+      <a href="adjustments.html">Requests</a> <!-- navigation link to slot adjustments view -->
+      <a href="admin.html" id="adminLink" style="display:none;">Admin</a> <!-- admin-only navigation link, shown conditionally via JS -->
+      <a href="analytics.html">Analytics</a> <!-- navigation link to analytics page -->
+      <a href="#" onclick="logout()">Logout</a> <!-- link triggering user logout script -->
+    </div>
+  </div>
+
+  <!-- Page main content container -->
+  <div class="container"> <!-- centered page container -->
+    <h2>Facility Utilization &amp; Cancellation Analytics</h2> <!-- main analytics section heading -->
+
+    <!-- Grid container for aggregate statistical metric cards -->
+    <div class="facility-grid"> <!-- CSS grid container using shared responsive grid layout -->
+      <div class="stat-card"> <!-- container card for total bookings metric -->
+        <div class="stat-number" id="totalBookings">-</div> <!-- metric value placeholder, populated dynamically by analytics.js -->
+        <div class="stat-label">Total Bookings</div> <!-- metric label description -->
+      </div>
+      <div class="stat-card"> <!-- container card for total booked hours metric -->
+        <div class="stat-number" id="totalBookedHours">-</div> <!-- metric value placeholder, populated dynamically by analytics.js -->
+        <div class="stat-label">Total Booked Hours</div> <!-- metric label description -->
+      </div>
+      <div class="stat-card"> <!-- container card for cancellation rate metric -->
+        <div class="stat-number" id="cancellationRate">-</div> <!-- metric value placeholder, populated dynamically by analytics.js -->
+        <div class="stat-label">Cancellation Rate</div> <!-- metric label description -->
+      </div>
+      <div class="stat-card"> <!-- container card for pending approvals count metric -->
+        <div class="stat-number" id="pendingApprovals">-</div> <!-- metric value placeholder, populated dynamically by analytics.js -->
+        <div class="stat-label">Pending Approvals</div> <!-- metric label description -->
+      </div>
+      <div class="stat-card"> <!-- container card for peak demand time hour range metric -->
+        <div class="stat-number" id="peakDemandTime">-</div> <!-- metric value placeholder, populated dynamically by analytics.js -->
+        <div class="stat-label">Peak Demand Time</div> <!-- metric label description -->
+      </div>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script> <!-- loads shared API fetch helper module -->
+  <script src="js/analytics.js"></script> <!-- loads analytics dashboard script for fetching overview metrics from backend -->
+</body>
+</html>

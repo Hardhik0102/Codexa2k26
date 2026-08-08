@@ -1,0 +1,39 @@
+<!DOCTYPE html> <!-- tells the browser this is a modern HTML5 document -->
+<html lang="en"> <!-- root element of the page, language set to English -->
+<head>
+  <meta charset="UTF-8" /> <!-- ensures special characters display correctly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- makes the page render properly on mobile screens -->
+  <title>Login - Campus Resource Booking</title> <!-- text shown in the browser tab -->
+  <link rel="stylesheet" href="css/style.css" /> <!-- link to our shared stylesheet -->
+</head>
+<body>
+
+  <div class="container" style="max-width: 400px; margin-top: 80px;"> <!-- narrow centered box just for the login form -->
+    <div class="card">
+      <h2 style="margin-bottom: 20px;">Campus Resource Booking</h2> <!-- page heading -->
+
+      <form id="loginForm"> <!-- the actual login form, submit is handled in auth.js -->
+        <label for="email">Email</label> <!-- label linked to the input below via "for" -->
+        <input type="email" id="email" required /> <!-- required = browser won't submit until this is filled -->
+
+        <label for="password">Password</label>
+        <input type="password" id="password" required /> <!-- type="password" hides the typed characters -->
+
+        <button type="submit">Log In</button> <!-- clicking this (or pressing Enter) submits the form -->
+      </form>
+
+      <p id="errorMessage" style="color: red; margin-top: 10px;"></p> <!-- empty placeholder, filled in by JS if login fails -->
+
+      <!-- Quick-login buttons for demo purposes, so judges don't have to type credentials -->
+      <hr style="margin: 20px 0;" /> <!-- horizontal divider line -->
+      <p style="font-size: 13px; color: #6b7280; margin-bottom: 10px;">Quick demo login:</p>
+      <button type="button" onclick="quickLogin('admin@campus.edu','admin123')" style="margin-right: 8px;">Admin</button> <!-- type="button" so it does NOT submit the form -->
+      <button type="button" onclick="quickLogin('studenta@campus.edu','student123')" style="margin-right: 8px;">Student A</button>
+      <button type="button" onclick="quickLogin('studentb@campus.edu','student123')">Student B</button>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script> <!-- shared API helper, loaded first -->
+  <script src="js/auth.js"></script> <!-- handles this page's login logic -->
+</body>
+</html>

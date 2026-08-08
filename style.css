@@ -1,0 +1,148 @@
+/* style.css — shared styling for every page in the app */
+
+/* Reset default browser spacing so every element starts from the same baseline */
+* {
+  margin: 0; /* remove default outer spacing */
+  padding: 0; /* remove default inner spacing */
+  box-sizing: border-box; /* width/height calculations include padding+border, not just content — avoids layout surprises */
+}
+
+/* Base page styling applied to every page */
+body {
+  font-family: Arial, Helvetica, sans-serif; /* readable, widely-available font */
+  background-color: #f4f6f8; /* light grey page background so white cards stand out */
+  color: #1a1a1a; /* near-black text for readability */
+}
+
+/* Top navigation bar shown on every page */
+.navbar {
+  display: flex; /* lay out children in a row */
+  justify-content: space-between; /* push logo to the left, links to the right */
+  align-items: center; /* vertically center everything in the bar */
+  background-color: #1e293b; /* dark navy background */
+  padding: 15px 30px; /* inner spacing */
+  color: white; /* white text on the dark background */
+}
+
+.navbar a {
+  color: white; /* links inherit the white text color */
+  text-decoration: none; /* remove the default underline */
+  margin-left: 20px; /* spacing between nav links */
+}
+
+.navbar a:hover {
+  text-decoration: underline; /* underline appears only when hovering, as a hint it's clickable */
+}
+
+/* Generic page content wrapper — keeps content from stretching edge-to-edge on wide screens */
+.container {
+  max-width: 1000px; /* cap the width for readability */
+  margin: 30px auto; /* center horizontally, with vertical spacing above/below */
+  padding: 0 20px; /* side padding for smaller screens */
+}
+
+/* Card used for facility listings, booking rows, etc. */
+.card {
+  background: white; /* white card on the light grey page background */
+  border-radius: 8px; /* rounded corners */
+  padding: 20px; /* inner spacing */
+  margin-bottom: 15px; /* spacing between stacked cards */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* subtle shadow so the card looks slightly raised */
+}
+
+/* Grid layout specifically for facility cards, so they wrap into columns responsively */
+.facility-grid {
+  display: grid; /* enable CSS grid layout */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* as many 250px+ columns as fit, each sharing remaining space equally */
+  gap: 15px; /* spacing between grid cells */
+}
+
+/* Buttons used throughout the app */
+button {
+  background-color: #2563eb; /* blue background */
+  color: white; /* white text */
+  border: none; /* remove default button border */
+  padding: 8px 16px; /* comfortable click target */
+  border-radius: 5px; /* rounded corners */
+  cursor: pointer; /* hand cursor on hover, signals it's clickable */
+  font-size: 14px; /* readable button text size */
+}
+
+button:hover {
+  background-color: #1d4ed8; /* slightly darker blue on hover, gives feedback */
+}
+
+button.danger {
+  background-color: #dc2626; /* red variant for destructive actions like Cancel/Reject */
+}
+
+button.danger:hover {
+  background-color: #b91c1c; /* darker red on hover */
+}
+
+button.secondary {
+  background-color: #6b7280; /* grey variant for less important actions like Decline */
+}
+
+/* Status badges (PENDING/APPROVED/etc.) shown next to bookings */
+.badge {
+  display: inline-block; /* sit inline with text but allow padding */
+  padding: 3px 10px; /* small badge padding */
+  border-radius: 12px; /* fully rounded pill shape */
+  font-size: 12px; /* small text */
+  font-weight: bold; /* make the status stand out */
+  color: white; /* white text on colored background */
+}
+
+.badge.PENDING { background-color: #f59e0b; } /* amber for pending */
+.badge.APPROVED { background-color: #16a34a; } /* green for approved */
+.badge.REJECTED { background-color: #dc2626; } /* red for rejected */
+.badge.CANCELLED { background-color: #6b7280; } /* grey for cancelled */
+
+/* Simple form styling used on login and booking forms */
+input, select, textarea {
+  width: 100%; /* fill the width of their container */
+  padding: 8px; /* inner spacing for readability */
+  margin-bottom: 12px; /* spacing below each field */
+  border: 1px solid #ccc; /* light grey border */
+  border-radius: 5px; /* rounded corners to match buttons */
+  font-size: 14px; /* consistent readable text size */
+}
+
+label {
+  display: block; /* force each label onto its own line above its input */
+  margin-bottom: 4px; /* small gap between label text and its input */
+  font-weight: bold; /* make field names easy to scan */
+}
+
+/* Simple table styling used on the admin dashboard */
+table {
+  width: 100%; /* fill the container width */
+  border-collapse: collapse; /* remove double borders between adjacent cells */
+  background: white; /* white table background */
+}
+
+th, td {
+  text-align: left; /* left-align all table text */
+  padding: 10px; /* inner cell spacing */
+  border-bottom: 1px solid #e5e7eb; /* light divider line between rows */
+}
+
+/* Simple stat cards used on the analytics page */
+.stat-card {
+  background: white; /* white card background */
+  border-radius: 8px; /* rounded corners */
+  padding: 20px; /* inner spacing */
+  text-align: center; /* center the number and label */
+}
+
+.stat-number {
+  font-size: 28px; /* large, easy to scan number */
+  font-weight: bold; /* make it stand out */
+  color: #2563eb; /* blue to match the button color scheme */
+}
+
+.stat-label {
+  font-size: 13px; /* smaller descriptive label below the number */
+  color: #6b7280; /* muted grey */
+}

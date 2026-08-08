@@ -1,0 +1,33 @@
+<!DOCTYPE html> <!-- tells the browser this is a modern HTML5 document -->
+<html lang="en"> <!-- root element of the page, language set to English -->
+<head>
+  <meta charset="UTF-8" /> <!-- ensures special characters display correctly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- makes the page render properly on mobile screens -->
+  <title>My Bookings - Campus Resource Booking</title> <!-- page title shown in browser tab -->
+  <link rel="stylesheet" href="css/style.css" /> <!-- link to our shared CSS stylesheet -->
+</head>
+<body>
+
+  <!-- Shared top navigation bar -->
+  <div class="navbar"> <!-- flexbox header navigation container -->
+    <div><strong>Campus Booking</strong></div> <!-- application logo and name -->
+    <div> <!-- header links container -->
+      <a href="facilities.html">Facilities</a> <!-- link to facilities page -->
+      <a href="my-bookings.html">My Bookings</a> <!-- link to personal bookings list -->
+      <a href="adjustments.html">Requests</a> <!-- link to slot request inbox -->
+      <a href="admin.html" id="adminLink" style="display:none;">Admin</a> <!-- hidden by default, shown for admin users via JS -->
+      <a href="analytics.html">Analytics</a> <!-- link to analytics overview page -->
+      <a href="#" onclick="logout()">Logout</a> <!-- triggers user logout handler script -->
+    </div>
+  </div>
+
+  <!-- Page main content area -->
+  <div class="container"> <!-- layout container for main content -->
+    <h2>My Bookings</h2> <!-- section title heading -->
+    <div id="bookingsList"></div> <!-- list container dynamically populated with user's booking cards by bookings.js -->
+  </div>
+
+  <script src="js/api.js"></script> <!-- loads shared API fetch client -->
+  <script src="js/bookings.js"></script> <!-- loads bookings view logic for displaying and cancelling user bookings -->
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html> <!-- tells the browser this is a modern HTML5 document -->
+<html lang="en"> <!-- root element of the page, language set to English -->
+<head>
+  <meta charset="UTF-8" /> <!-- ensures special characters display correctly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- makes the page render properly on mobile screens -->
+  <title>Admin Dashboard - Campus Resource Booking</title> <!-- page title shown in browser tab -->
+  <link rel="stylesheet" href="css/style.css" /> <!-- link to our shared CSS stylesheet -->
+</head>
+<body>
+
+  <!-- Shared top navigation bar -->
+  <div class="navbar"> <!-- flexbox header container -->
+    <div><strong>Campus Booking</strong></div> <!-- application logo and name -->
+    <div> <!-- navigation links list -->
+      <a href="facilities.html">Facilities</a> <!-- navigation link to facilities -->
+      <a href="my-bookings.html">My Bookings</a> <!-- navigation link to user bookings -->
+      <a href="adjustments.html">Requests</a> <!-- navigation link to requests -->
+      <a href="admin.html">Admin</a> <!-- admin navigation link -->
+      <a href="analytics.html">Analytics</a> <!-- navigation link to analytics -->
+      <a href="#" onclick="logout()">Logout</a> <!-- triggers logout function -->
+    </div>
+  </div>
+
+  <!-- Admin main dashboard container -->
+  <div class="container"> <!-- centered content area -->
+    <h2>Pending Booking Approvals</h2> <!-- main section heading -->
+    <p id="accessDenied" style="color:red; display:none;">Admins only — you don't have access to this page.</p> <!-- error message shown if non-admin accesses page -->
+
+    <table id="pendingTable" style="display:none;"> <!-- table element, hidden until admin authorization is verified by admin.js -->
+      <thead> <!-- table header definition -->
+        <tr> <!-- table header row -->
+          <th>Requester</th> <!-- column header for requester name -->
+          <th>Facility</th> <!-- column header for facility name -->
+          <th>Event</th> <!-- column header for event title -->
+          <th>Time</th> <!-- column header for booking date/time slot -->
+          <th>Attendees</th> <!-- column header for attendee count -->
+          <th>Actions</th> <!-- column header for approve/reject buttons -->
+        </tr>
+      </thead>
+      <tbody id="pendingBody"></tbody> <!-- table body dynamically populated with pending booking rows by admin.js -->
+    </table>
+  </div>
+
+  <script src="js/api.js"></script> <!-- loads shared API communication functions -->
+  <script src="js/admin.js"></script> <!-- loads admin dashboard logic for fetching and approving/rejecting bookings -->
+</body>
+</html>

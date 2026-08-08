@@ -1,0 +1,60 @@
+<!DOCTYPE html> <!-- tells the browser this is a modern HTML5 document -->
+<html lang="en"> <!-- root element of the page, language set to English -->
+<head>
+  <meta charset="UTF-8" /> <!-- ensures special characters display correctly -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- makes the page render properly on mobile screens -->
+  <title>Calendar - Campus Resource Booking</title> <!-- page title shown in browser tab -->
+  <link rel="stylesheet" href="css/style.css" /> <!-- link to our shared CSS stylesheet -->
+</head>
+<body>
+
+  <!-- Shared top navigation bar -->
+  <div class="navbar"> <!-- flexbox navigation bar container -->
+    <div><strong>Campus Booking</strong></div> <!-- application logo / title -->
+    <div> <!-- navigation options container -->
+      <a href="facilities.html">Facilities</a> <!-- navigation link to facilities view -->
+      <a href="my-bookings.html">My Bookings</a> <!-- navigation link to my bookings view -->
+      <a href="adjustments.html">Requests</a> <!-- navigation link to adjustment requests inbox -->
+      <a href="admin.html" id="adminLink" style="display:none;">Admin</a> <!-- hidden by default, unhidden for admins by JS -->
+      <a href="analytics.html">Analytics</a> <!-- navigation link to analytics page -->
+      <a href="#" onclick="logout()">Logout</a> <!-- triggers user logout handler -->
+    </div>
+  </div>
+
+  <!-- Page main content container -->
+  <div class="container"> <!-- layout wrapper for calendar elements -->
+    <h2 id="facilityName">Loading facility...</h2> <!-- facility title heading, populated dynamically by calendar.js -->
+
+    <!-- New booking form card -->
+    <div class="card"> <!-- styled card container for the booking input form -->
+      <h3>Book This Slot</h3> <!-- card title -->
+      <form id="bookingForm"> <!-- booking input form, submit handled by calendar.js -->
+        <label for="eventName">Event Name</label> <!-- form label for event title -->
+        <input type="text" id="eventName" required /> <!-- text input for event title -->
+
+        <label for="purpose">Purpose</label> <!-- form label for booking purpose -->
+        <input type="text" id="purpose" required /> <!-- text input for booking purpose details -->
+
+        <label for="attendeeCount">Attendee Count</label> <!-- form label for attendees -->
+        <input type="number" id="attendeeCount" min="1" required /> <!-- numeric input for attendee count -->
+
+        <label for="startDateTime">Start Date &amp; Time</label> <!-- form label for start time -->
+        <input type="datetime-local" id="startDateTime" required /> <!-- native datetimepicker for start time -->
+
+        <label for="endDateTime">End Date &amp; Time</label> <!-- form label for end time -->
+        <input type="datetime-local" id="endDateTime" required /> <!-- native datetimepicker for end time -->
+
+        <button type="submit">Submit Booking</button> <!-- submit button to trigger booking validation and creation -->
+      </form>
+      <p id="bookingMessage" style="margin-top: 10px;"></p> <!-- feedback message paragraph for showing success or conflict errors -->
+    </div>
+
+    <!-- Existing bookings section -->
+    <h3>Current Bookings for This Facility</h3> <!-- section heading for existing slot list -->
+    <div id="bookingsList"></div> <!-- list container populated dynamically with booking cards by calendar.js -->
+  </div>
+
+  <script src="js/api.js"></script> <!-- loads shared API fetch client -->
+  <script src="js/calendar.js"></script> <!-- loads calendar controller for booking slot submission and adjustment requests -->
+</body>
+</html>
